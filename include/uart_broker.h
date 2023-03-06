@@ -10,8 +10,8 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-#include <devicetree.h>
-#include <drivers/uart.h>
+#include <zephyr/devicetree.h>
+#include <zephyr/drivers/uart.h>
 
 #define UART_LABEL DT_NODELABEL(uart0)
 

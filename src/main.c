@@ -16,8 +16,8 @@
 #include <modem/modem_key_mgmt.h>
 #include <modem/nrf_modem_lib.h>
 #include <modem/pdn.h>
-#include <net/socket.h>
-#include <net/tls_credentials.h>
+#include <zephyr/net/socket.h>
+#include <zephyr/net/tls_credentials.h>
 
 #include "sipf/sipf_client_http.h"
 #include "sipf/sipf_auth.h"
