@@ -8,8 +8,7 @@
 #include <stdint.h>
 #include <string.h>
 
-#include <zephyr.h>
-#include <drivers/uart.h>
+#include <zephyr/kernel.h>
 
 #include "uart_broker.h"
 
