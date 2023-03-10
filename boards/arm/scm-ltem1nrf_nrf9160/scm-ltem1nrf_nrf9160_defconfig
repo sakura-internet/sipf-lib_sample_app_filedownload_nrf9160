@@ -7,6 +7,9 @@ CONFIG_BOARD_SCM_LTEM1NRF_NRF9160=y
 # Enable MPU
 CONFIG_ARM_MPU=y
 
+# Enable hardware stack protection
+CONFIG_HW_STACK_PROTECTION=y
+
 # Enable TrustZone-M
 CONFIG_ARM_TRUSTZONE_M=y
 
@@ -19,3 +22,5 @@ CONFIG_SERIAL=y
 # enable console
 CONFIG_CONSOLE=y
 CONFIG_UART_CONSOLE=y
+
+CONFIG_PINCTRL=y
