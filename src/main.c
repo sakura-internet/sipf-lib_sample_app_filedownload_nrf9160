@@ -21,6 +21,7 @@
 
 #include "sipf/sipf_client_http.h"
 #include "sipf/sipf_auth.h"
+#include "sipf/sipf_file.h"
 #include "uart_broker.h"
 
 #include "version.h"
@@ -309,37 +310,18 @@ void main(void)
             LOG_ERR("button_read() failed.");
         } else {
             if ((btn_prev == 0) && (btn_val == 1)) {
-                UartBrokerPuts("Button Pushed\r\n");
+                UartBrokerPuts("File put Button Pushed\r\n");
                 // 送信ボタンが押された
                 cnt_push_btn++;
 
-                SipfObjectObject obj[2];
-                SipfObjectOtid otid;
-                LOG_DBG("%d", cnt_push_btn);
-                obj[0].obj_tagid = 0x00;
-                obj[0].obj_type = OBJ_TYPE_UINT32;
-                obj[0].value = (uint8_t *)&cnt_push_btn;
-                obj[0].value_len = sizeof(cnt_push_btn);
-
-                obj[1].obj_tagid = 0x01;
-                obj[1].obj_type = OBJ_TYPE_STR_UTF8;
-                obj[1].value = (uint8_t *)"hello";
-                obj[1].value_len = 5;
-
-                int payload_len = SipfObjectCreateObjUpPayload(work_buff, sizeof(work_buff), obj, 2);
-                if (payload_len > 0) {
-                    gpio_pin_set_dt(&led_state, 1);
-                    if (SipfObjClientObjUpRaw(work_buff, (uint16_t)payload_len, &otid) == 0) {
-                        UartBrokerPuts("SUCCESS!\r\nOTID: ");
-                        for (int i = 0; i < sizeof(SipfObjectOtid); i++) {
-                            UartBrokerPrint("%02x", otid.value[i]);
-                        }
-                        UartBrokerPuts("\r\n");
-                    } else {
-                        UartBrokerPuts("FAILED\r\n");
-                    }
-                    gpio_pin_set_dt(&led_state, 0);
+                int payload_len = sprintf((char*)work_buff, "hello %d times.\r\n", cnt_push_btn);
+                gpio_pin_set_dt(&led_state, 1);
+                if (SipfFileUpload("sipf_file_sample.txt", work_buff, NULL, payload_len) == 0) {
+                    UartBrokerPuts("SUCCESS!\r\n");
+                } else {
+                    UartBrokerPuts("FAILED\r\n");
                 }
+                gpio_pin_set_dt(&led_state, 0);
             }
             btn_prev = btn_val;
         }

@@ -1,10 +1,10 @@
-# sipf-lib_sample_app_tx_nrf9160
+# sipf-lib_sample_app_fileput_nrf9160
 
 ## Getting start
 
 ### About
 
-This software is `Object TX sample' for Sakura's MONOPLATFORM.  
+This software is `File put sample' for Sakura's MONOPLATFORM.  
 Target divice are [Nordic nRF9160DK](https://www.nordicsemi.com/Products/Development-hardware/nRF9160-DK) and [Nordic Thingy:91](https://www.nordicsemi.com/Products/Development-hardware/Nordic-Thingy-91).
 
 ### Install nRF Connect SDK
@@ -17,7 +17,7 @@ Using nRF Connect SDK v2.3.0 .
 ### Clone this repository
 
 ```
-git clone --recursive https://github.com/sakura-internet/sipf-lib_sample_app_tx_nrf9160.git
+git clone --recursive https://github.com/sakura-internet/sipf-lib_sample_app_fileput_nrf9160.git
 cd sipf-lib_sample_app_tx_nrf9160
 ```
 
@@ -42,6 +42,7 @@ board
 
 - nrf9160dk_nrf9160_ns
 - thingy91_nrf9160_ns
+- scm-ltem1nrf_nrf9160_ns
 
 For Nordic nRF9160DK
 ```
