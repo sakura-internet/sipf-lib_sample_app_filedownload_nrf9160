@@ -233,6 +233,21 @@ static int init_modem_and_lte(void)
 
 uint8_t work_buff[1024];
 
+/**
+ * ファイルダウンロードのコールバック関数
+*/
+static int cb_fileDownload(uint8_t *buff, size_t len)
+{
+    // ファイルの内容をHEX文字列で出力
+    for (int i = 0; i < len; i++) {
+        UartBrokerPrint("%02x", buff[i]);
+    }
+    if (len < sizeof(work_buff)) {
+        UartBrokerPuts("\r\n");
+    }
+    return 0;
+}
+
 void main(void)
 {
     int err;
@@ -294,7 +309,6 @@ void main(void)
     ms_timeout = k_uptime_get() + LED_HEARTBEAT_MS;
 
     int btn_prev = 0;
-    uint32_t cnt_push_btn = 0;
     for (;;) {
         // Heart Beat
         ms_now = k_uptime_get();
@@ -308,16 +322,15 @@ void main(void)
             LOG_ERR("button_read() failed.");
         } else {
             if ((btn_prev == 0) && (btn_val == 1)) {
-                UartBrokerPuts("File put Button Pushed\r\n");
-                // 送信ボタンが押された
-                cnt_push_btn++;
-
-                int payload_len = sprintf((char*)work_buff, "hello %d times.\r\n", cnt_push_btn);
+                UartBrokerPuts("File download Button Pushed\r\n");
+                // 受信ボタンが押された
+                int recv_len;
                 gpio_pin_set_dt(&led_state, 1);
-                if (SipfFileUpload("sipf_file_sample.txt", work_buff, NULL, payload_len) == 0) {
-                    UartBrokerPuts("SUCCESS!\r\n");
-                } else {
+                recv_len = SipfFileDownload("sipf_file_sample.txt", NULL, sizeof(work_buff), cb_fileDownload);
+                if (recv_len < 0) {
                     UartBrokerPuts("FAILED\r\n");
+                } else {
+                    UartBrokerPrint("Received: %d bytes.\r\n", recv_len);
                 }
                 gpio_pin_set_dt(&led_state, 0);
             }

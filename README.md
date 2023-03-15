@@ -1,4 +1,4 @@
-# sipf-lib_sample_app_fileupload_nrf9160
+# sipf-lib_sample_app_filedownload_nrf9160
 
 ## Getting start
 
@@ -17,7 +17,7 @@ Using nRF Connect SDK v2.3.0 .
 ### Clone this repository
 
 ```
-git clone --recursive https://github.com/sakura-internet/sipf-lib_sample_app_fileupload_nrf9160.git
+git clone --recursive https://github.com/sakura-internet/sipf-lib_sample_app_filedownload_nrf9160.git
 cd sipf-lib_sample_app_tx_nrf9160
 ```
 
