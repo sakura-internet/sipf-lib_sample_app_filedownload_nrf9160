@@ -24,8 +24,6 @@
 #include "sipf/sipf_file.h"
 #include "uart_broker.h"
 
-#include "version.h"
-
 LOG_MODULE_REGISTER(sipf, CONFIG_SIPF_LOG_LEVEL);
 
 /** peripheral **/
